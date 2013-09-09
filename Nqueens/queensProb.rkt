@@ -11,9 +11,10 @@
   (if (> low high)
     '()
     (cons low (enumerate-interval (+ low 1) high))))
-
+(define (nmapper n length) 
+   (cons n (nmapper n (- length 1))))
 (define (diagHelper? new check g) (if (or (= (+ new g) check) (= (- new g) check)) #t #f))
-(define (diag? n l) (ormap diagHelper? n l (enumerate-interval 1 (length l))))
+(define (diag? n l) (ormap diagHelper? () l (enumerate-interval 1 (length l))))
                      
              
 ;;(diagHelper? 4 3 2)
