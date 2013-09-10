@@ -3,7 +3,7 @@
 (define (iperm s a)
   (if (null? s)
       (list a)
-  (append-map(λ(x) iperm (remove x s) (cons x a)) s)))
+  (append-map(λ(x) (if (diag? x a) '() (iperm (remove x s) (cons x a)))) s)))
 
 (define (enumerate-interval low high)
   (if (> low high)
@@ -29,4 +29,19 @@
                  (map (λ (p) (cons x p))
                       (permutations (remove x s))))
                s)))
+
+(length (iperm (enumerate-interval 1 2) '()))
+(length (iperm (enumerate-interval 1 3) '()))
+(length (iperm (enumerate-interval 1 4) '()))
+(length (iperm (enumerate-interval 1 5) '()))
+(length (iperm (enumerate-interval 1 6) '()))
+(length (iperm (enumerate-interval 1 7) '()))
+(length (iperm (enumerate-interval 1 8) '()))
+(length (iperm (enumerate-interval 1 9) '()))
+(length (iperm (enumerate-interval 1 10) '()))
+(length (iperm (enumerate-interval 1 11) '()))
+(length (iperm (enumerate-interval 1 12) '()))
+(length (iperm (enumerate-interval 1 13) '()))
+(length (iperm (enumerate-interval 1 14) '()))
+(length (iperm (enumerate-interval 1 15) '()))
 
