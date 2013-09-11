@@ -11,13 +11,10 @@
     '()
     (cons low (enumerate-interval (+ low 1) high))))
 
-(define (diagHelper? new check g)
-  (if (or (= (+ new g) check) (= (- new g) check))
-      #t
-      #f))
-
 (define (diag? n l)
-  (ormap (λ(x y) (diagHelper? n x y)) l (enumerate-interval 1 (length l))))
+  (ormap (λ(x y) (if (or (= (+ n y) x) (= (- n y) x))
+      #t
+      #f)) l (enumerate-interval 1 (length l))))
 
 (define (q n)
   (displayln 
