@@ -1,35 +1,26 @@
 #lang racket
 (require racket/trace)
-(define (iperm s a)
+
+(define (iqueens s a)
   (if (null? s)
       (list a)
-  (append-map(λ(x) (if (diag? x a) '() (iperm (remove x s) (cons x a)))) s)))
+  (append-map(λ(x) (if (diag? x a) '() (iqueens (remove x s) (cons x a)))) s)))
 
 (define (enumerate-interval low high)
   (if (> low high)
     '()
     (cons low (enumerate-interval (+ low 1) high))))
 
-(define (nmapper n length) 
-  (if (> length 0)
-  (cons n (nmapper n (- length 1))) '()))
+(define (diag? n l)
+  (ormap (λ(x y) (if (or (= (+ n y) x) (= (- n y) x))
+      #t
+      #f)) l (enumerate-interval 1 (length l))))
 
-(define (diagHelper? new check g) (if (or (= (+ new g) check) (= (- new g) check)) #t #f))
+(define (q n)
+  (displayln 
+   (length (iqueens (enumerate-interval 1 n) '()))))
 
-(define (diag? n l) (ormap diagHelper? (nmapper n (length l)) l (enumerate-interval 1 (length l))))
-                     
-(diag? 4 '(8 6 2 7 1 3 5))
-
-(define (permutations s)
-  (if (null? s)
-      ; empty set?
-      (list '())
-      ; sequence containing empty set
-      (append-map (λ (x)
-                 (map (λ (p) (cons x p))
-                      (permutations (remove x s))))
-               s)))
-
+<<<<<<< HEAD
 (length (iperm (enumerate-interval 1 2) '()))
 (length (iperm (enumerate-interval 1 3) '()))
 (length (iperm (enumerate-interval 1 4) '()))
@@ -59,4 +50,9 @@
 (length (iperm (enumerate-interval 1 28) '()))
 (length (iperm (enumerate-interval 1 29) '()))
 
+=======
+(define (test t)
+  (for-each q (enumerate-interval 1 t)))
+>>>>>>> 55e5aeac802251a6b10067549705b4bf91ceae47
 
+(test 20)
